@@ -1,0 +1,18 @@
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+!src/**
+
+cdk-outputs.json
+.DS_Store
+
+sdk
+site-packages
+*.drawio
+yarn.lock
