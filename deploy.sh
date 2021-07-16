@@ -50,33 +50,12 @@ fi
 echo ""
 echo "Building Packages"
 echo ""
-if [ ! -d "python-layer/python/lib/python3.6/site-packages" ]; then
-    pushd python-layer/python/lib/python3.6
-    pip3 install -r requirements.txt --target site-packages
-    popd
-fi
-echo ""
-echo "Checking ffmpeg Layer"
-echo ""
-FFMPEGLAYER_STATUS=$( aws cloudformation describe-stacks --stack-name ffmpegLayerStack --region us-east-1 | jq -r ".Stacks[0].StackStatus" )
-if [ "$FFMPEGLAYER_STATUS" != "CREATE_COMPLETE" ]; then
-  echo "Deploying ffmpeg Layer"
-  TEMPLATE_URL=$(aws serverlessrepo create-cloud-formation-template --application-id arn:aws:serverlessrepo:us-east-1:145266761615:applications/ffmpeg-lambda-layer --region us-east-1 | jq -r '.TemplateUrl' | awk -F '?' '{print $1}')
-  aws cloudformation create-stack --stack-name ffmpegLayerStack --template-url $TEMPLATE_URL --region us-east-1 --capabilities CAPABILITY_AUTO_EXPAND
-fi
-FFMPEGLAYER_ARN=''
-loopCount=0
-while [[ "$FFMPEGLAYER_ARN" == '' || "$FFMPEGLAYER_ARN" == null ]]
-do
-  if [ "$loopCount" -gt "5" ]; then
-    echo "Error creating ffmpegLayer"
-    exit 1
-  fi
-  let loopCount++
-  sleep 10
-  FFMPEGLAYER_ARN=$( aws cloudformation describe-stacks --stack-name ffmpegLayerStack --region us-east-1 | jq -r ".Stacks[0].Outputs[0].OutputValue" )
-done
-echo "ARN: $FFMPEGLAYER_ARN"
+pushd python-layer
+mkdir bin/
+curl -s https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz | tar -xJC bin --strip=1 'ffmpeg-*-amd64-static/ffmpeg'
+docker run --rm -v $(pwd):/foo -w /foo lambci/lambda:build-python3.8 pip3 install -r requirements.txt -t python
+zip -r9 layer.zip bin python -x "*.pyc"
+popd
 echo ""
 echo "Building CDK"
 echo ""
@@ -84,4 +63,4 @@ yarn run build
 echo ""
 echo "Deploying CDK"
 echo ""
-cdk deploy -O client/src/cdk-outputs.json -c ffmpegLayerARN=$FFMPEGLAYER_ARN
+cdk deploy -O client/src/cdk-outputs.json

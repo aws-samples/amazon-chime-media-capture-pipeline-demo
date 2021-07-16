@@ -89,8 +89,8 @@ const App = () => {
       try {
         await axios(recordRequest)
         const processInfo = await axios(processRequest)
-        setProcessedURL(processInfo.data.processedUrl)
-        console.log(processInfo.data.processedUrledURL)
+        setProcessedURL(processInfo.data.processedURL)
+        console.log(processInfo.data.processedURL)
         } catch (err) {
         console.log(err)
       }

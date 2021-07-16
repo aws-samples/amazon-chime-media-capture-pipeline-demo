@@ -5,11 +5,8 @@ import apigateway = require('@aws-cdk/aws-apigateway');
 import iam = require('@aws-cdk/aws-iam')
 import s3 = require('@aws-cdk/aws-s3');
 import { Duration } from '@aws-cdk/core';
-export interface StackProps {
-  ffmpegLayerArn: string;
-}
 export class MediaCaptureDemo extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props: StackProps) {
+  constructor(scope: cdk.Construct, id: string) {
     super(scope, id);
 
       const meetingsTable = new dynamodb.Table(this, 'meetings', {
@@ -65,13 +62,11 @@ export class MediaCaptureDemo extends cdk.Stack {
       });
 
       const pythonLayer = new lambda.LayerVersion(this, 'pythonLayer', {
-        code: new lambda.AssetCode('python-layer'),
-        compatibleRuntimes: [lambda.Runtime.PYTHON_3_6],
+        code: new lambda.AssetCode('python-layer/layer.zip'),
+        compatibleRuntimes: [lambda.Runtime.PYTHON_3_8],
         license: 'Apache-2.0',
         description: 'media-capture-python-layer',
       });      
-
-      const ffmpegLayer = lambda.LayerVersion.fromLayerVersionArn(this, 'ffmpegLayer',props.ffmpegLayerArn)
 
       const createLambda = new lambda.Function(this, 'create', {
           code: lambda.Code.fromAsset("src/createLambda"),
@@ -105,11 +100,11 @@ export class MediaCaptureDemo extends cdk.Stack {
       const processLambda = new lambda.Function(this, 'processVideo', {
         code: lambda.Code.fromAsset("src/processLambda"),
         handler: 'process.lambda_handler',
-        runtime: lambda.Runtime.PYTHON_3_6,
+        runtime: lambda.Runtime.PYTHON_3_8,
         role: lambdaChimeRole,
         memorySize: 10240,
         timeout: Duration.minutes(15),          
-        layers: [ pythonLayer, ffmpegLayer ],
+        layers: [ pythonLayer ],
         environment: {
           MEDIA_CAPTURE_BUCKET: mediaCaptureBucket.bucketName,
         },          
