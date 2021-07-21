@@ -90,8 +90,7 @@ const App = () => {
         await axios(recordRequest)
         const processInfo = await axios(processRequest)
         // setProcessedURL(processInfo.data.processedURL)
-        console.log("Audio Only File: " + processInfo.data.audioProcessedUrl)
-        console.log("Audio and Video File: " + processInfo.data.videoProcessedUrl)
+        console.log("Processed File: " + processInfo.data.processedUrl)
         } catch (err) {
         console.log(err)
       }

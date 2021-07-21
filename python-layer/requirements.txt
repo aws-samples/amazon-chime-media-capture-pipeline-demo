@@ -1,5 +1,0 @@
-pydub
-boto3
-aws-xray-sdk
-requests
-ffmpeg-python
