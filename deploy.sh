@@ -17,14 +17,6 @@ if ! [ -x "$(command -v yarn)" ]; then
   echo 'Error: yarn is not installed. https://yarnpkg.com/getting-started/install' >&2
   exit 1
 fi
-if ! [ -x "$(command -v jq)" ]; then
-  echo 'Error: jq is not installed. https://stedolan.github.io/jq/download/' >&2
-  exit 1
-fi
-if ! [ -x "$(command -v pip3)" ]; then
-  echo 'Error: pip3 is not installed. https://pip.pypa.io/en/stable/installing/' >&2
-  exit 1
-fi
 if ! [ -x "$(command -v aws)" ]; then
   echo 'Error: aws is not installed. https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html' >&2
   exit 1
@@ -48,40 +40,10 @@ if [ ! -f "yarn.lock" ]; then
     yarn
 fi
 echo ""
-echo "Building Packages"
-echo ""
-if [ ! -d "python-layer/python/lib/python3.6/site-packages" ]; then
-    pushd python-layer/python/lib/python3.6
-    pip3 install -r requirements.txt --target site-packages
-    popd
-fi
-echo ""
-echo "Checking ffmpeg Layer"
-echo ""
-FFMPEGLAYER_STATUS=$( aws cloudformation describe-stacks --stack-name ffmpegLayerStack --region us-east-1 | jq -r ".Stacks[0].StackStatus" )
-if [ "$FFMPEGLAYER_STATUS" != "CREATE_COMPLETE" ]; then
-  echo "Deploying ffmpeg Layer"
-  TEMPLATE_URL=$(aws serverlessrepo create-cloud-formation-template --application-id arn:aws:serverlessrepo:us-east-1:145266761615:applications/ffmpeg-lambda-layer --region us-east-1 | jq -r '.TemplateUrl' | awk -F '?' '{print $1}')
-  aws cloudformation create-stack --stack-name ffmpegLayerStack --template-url $TEMPLATE_URL --region us-east-1 --capabilities CAPABILITY_AUTO_EXPAND
-fi
-FFMPEGLAYER_ARN=''
-loopCount=0
-while [[ "$FFMPEGLAYER_ARN" == '' || "$FFMPEGLAYER_ARN" == null ]]
-do
-  if [ "$loopCount" -gt "5" ]; then
-    echo "Error creating ffmpegLayer"
-    exit 1
-  fi
-  let loopCount++
-  sleep 10
-  FFMPEGLAYER_ARN=$( aws cloudformation describe-stacks --stack-name ffmpegLayerStack --region us-east-1 | jq -r ".Stacks[0].Outputs[0].OutputValue" )
-done
-echo "ARN: $FFMPEGLAYER_ARN"
-echo ""
 echo "Building CDK"
 echo ""
 yarn run build
 echo ""
 echo "Deploying CDK"
 echo ""
-cdk deploy -O client/src/cdk-outputs.json -c ffmpegLayerARN=$FFMPEGLAYER_ARN
+cdk deploy -O client/src/cdk-outputs.json

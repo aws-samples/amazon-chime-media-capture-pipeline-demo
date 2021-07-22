@@ -19,8 +19,7 @@ const App = () => {
   const [isRecording, setIsRecording] = useState(false)
   const [meetingDetails, setMeetingDetails] = useState('')
   const [mediaPipeLine, setMediaPipeLine] = useState('')
-  const [processedURL, setProcessedURL] = useState('')
-  const handleChange = (event) => setTitle(event.target.value)
+    const handleChange = (event) => setTitle(event.target.value)
 
   const handleJoinMeeting = async (event) => {
     event.preventDefault()
@@ -89,8 +88,7 @@ const App = () => {
       try {
         await axios(recordRequest)
         const processInfo = await axios(processRequest)
-        setProcessedURL(processInfo.data.processedUrl)
-        console.log(processInfo.data.processedUrledURL)
+        console.log("Processed File: " + processInfo.data.processedUrl)
         } catch (err) {
         console.log(err)
       }

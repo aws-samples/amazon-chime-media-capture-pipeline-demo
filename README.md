@@ -9,8 +9,6 @@ This demo will build and configure several services within AWS so that you can c
 - node V12+ [installed](https://nodejs.org/en/download/)
 - npm [installed](https://www.npmjs.com/get-npm)
 - yarn [installed](https://yarnpkg.com/getting-started/install)
-- pip [installed](https://pip.pypa.io/en/stable/installing/)
-- jq [installed](https://stedolan.github.io/jq/download/)
 - AWS CLI [installed](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 - AWS CDK [installed](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_install)
   - `npm install -g aws-cdk`
@@ -23,11 +21,10 @@ This demo will build and configure several services within AWS so that you can c
 - S3 Bucket - Used for storage of the captured media as well as the processed media
 - Create Lambda - Used to create the meeting and join users to the Chime SDK Meeting.  
 - Record Lambda - Used to start and stop the media capture pipeline.
-- Process Lambda - Used after the recording has stopped to process the video from separate chunks into a single mp4 file.
+- Process Lambda - Containerized image used after the recording has stopped to process the video from separate chunks into a single mp4 file.
 - API Gateway - Used to trigger Lambdas from the client side browser
 - SDK Layer - Used by the Create and Record Lambdas to have access to Chime APIs that are not currently available in Lambda
-- Python Layer - Used by the Process Lambda to assist with ffmpeg
-- FFMPEG Layer - Used by Process Lambda to concat files together.  Static build of FFmpeg/FFprobe for Amazon Linux 2. Bundles FFmpeg 4.1.3. Deployed from [serverlessrepo](https://serverlessrepo.aws.amazon.com/applications/us-east-1/145266761615/ffmpeg-lambda-layer)
+
 ## Deployment
 
 ### Back-end Resources

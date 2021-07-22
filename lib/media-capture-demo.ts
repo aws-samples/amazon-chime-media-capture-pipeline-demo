@@ -5,11 +5,8 @@ import apigateway = require('@aws-cdk/aws-apigateway');
 import iam = require('@aws-cdk/aws-iam')
 import s3 = require('@aws-cdk/aws-s3');
 import { Duration } from '@aws-cdk/core';
-export interface StackProps {
-  ffmpegLayerArn: string;
-}
 export class MediaCaptureDemo extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props: StackProps) {
+  constructor(scope: cdk.Construct, id: string) {
     super(scope, id);
 
       const meetingsTable = new dynamodb.Table(this, 'meetings', {
@@ -54,7 +51,6 @@ export class MediaCaptureDemo extends cdk.Stack {
       
       lambdaChimeRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"));
       
-
       const sdkBucket = s3.Bucket.fromBucketName(this,'amazon-chime-blog-assets','amazon-chime-blog-assets')
 
       const sdkLayer = new lambda.LayerVersion(this, 'aws-sdk', {
@@ -63,15 +59,6 @@ export class MediaCaptureDemo extends cdk.Stack {
         license: 'Apache-2.0',
         description: 'aws-sdk Layer',
       });
-
-      const pythonLayer = new lambda.LayerVersion(this, 'pythonLayer', {
-        code: new lambda.AssetCode('python-layer'),
-        compatibleRuntimes: [lambda.Runtime.PYTHON_3_6],
-        license: 'Apache-2.0',
-        description: 'media-capture-python-layer',
-      });      
-
-      const ffmpegLayer = lambda.LayerVersion.fromLayerVersionArn(this, 'ffmpegLayer',props.ffmpegLayerArn)
 
       const createLambda = new lambda.Function(this, 'create', {
           code: lambda.Code.fromAsset("src/createLambda"),
@@ -102,20 +89,19 @@ export class MediaCaptureDemo extends cdk.Stack {
 
       mediaCaptureBucket.grantReadWrite(recordingLambda)
 
-      const processLambda = new lambda.Function(this, 'processVideo', {
-        code: lambda.Code.fromAsset("src/processLambda"),
-        handler: 'process.lambda_handler',
-        runtime: lambda.Runtime.PYTHON_3_6,
-        role: lambdaChimeRole,
-        memorySize: 10240,
-        timeout: Duration.minutes(15),          
-        layers: [ pythonLayer, ffmpegLayer ],
-        environment: {
-          MEDIA_CAPTURE_BUCKET: mediaCaptureBucket.bucketName,
-        },          
-      });
+      const processLambda = new lambda.DockerImageFunction(this, 'proces', {
+        code: lambda.DockerImageCode.fromImageAsset("src/processLambda", {
+          cmd: [ 'app.handler' ],
+          entrypoint: ['/entry.sh'],}),
+          environment: {
+            MEDIA_CAPTURE_BUCKET: mediaCaptureBucket.bucketName
+          },
+        timeout: Duration.minutes(15),
+        memorySize: 10240
+        })
     
       meetingsTable.grantReadWriteData(processLambda);
+      mediaCaptureBucket.grantReadWrite(processLambda);
 
       const api = new apigateway.RestApi(this, 'meetingApi', {
           endpointConfiguration: {
