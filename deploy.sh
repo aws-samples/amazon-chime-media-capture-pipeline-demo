@@ -17,14 +17,6 @@ if ! [ -x "$(command -v yarn)" ]; then
   echo 'Error: yarn is not installed. https://yarnpkg.com/getting-started/install' >&2
   exit 1
 fi
-if ! [ -x "$(command -v jq)" ]; then
-  echo 'Error: jq is not installed. https://stedolan.github.io/jq/download/' >&2
-  exit 1
-fi
-if ! [ -x "$(command -v pip3)" ]; then
-  echo 'Error: pip3 is not installed. https://pip.pypa.io/en/stable/installing/' >&2
-  exit 1
-fi
 if ! [ -x "$(command -v aws)" ]; then
   echo 'Error: aws is not installed. https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html' >&2
   exit 1

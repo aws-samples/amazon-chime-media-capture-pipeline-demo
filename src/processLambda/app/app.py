@@ -9,7 +9,6 @@ import re
 import time
 
 SOURCE_BUCKET = os.environ['MEDIA_CAPTURE_BUCKET']
-# SOURCE_BUCKET = 'mediacapturedemo-mediacapturebucketc9e815f7-moh2cfdpsemd'
 SOURCE_PREFIX = 'captures'
 
 def handler(event, context):
@@ -17,9 +16,7 @@ def handler(event, context):
     time.sleep(15)
     meetingBody =  json.loads(event['body'])
     MEETING_ID = meetingBody['meetingId']
-    # bucket = boto3.resource('s3').Bucket(SOURCE_BUCKET)
     prefix = SOURCE_PREFIX + '/' + MEETING_ID + '/audio'
-    # objects = bucket.objects.filter(Prefix=prefix)
     client = boto3.client('s3')
 
     response = client.list_objects_v2(
@@ -42,7 +39,6 @@ def handler(event, context):
     print(audio_objs_keys)
     with open('/tmp/audio_list.txt', 'w') as f:
         for k in audio_objs_keys:
-            # url = s3_client.generate_presigned_url('get_object', Params={'Bucket': SOURCE_BUCKET, 'Key': k})
             basename = os.path.splitext(k)[0]
             print(basename)
             ffmpeg_cmd = "ffmpeg -i /tmp/" + k + " -bsf:v h264_mp4toannexb -f mpegts -framerate 15 -c copy /tmp/" + basename + ".ts -y"
