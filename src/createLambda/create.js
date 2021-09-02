@@ -31,14 +31,21 @@ async function putInfo(joinInfo) {
     console.log("In putInfo")
     var params = {
         TableName: meetingsTable,
-        Item: {
-            "Title": joinInfo.Title,
-            "MeetingInfo": joinInfo.Meeting
+        Key: {
+          "Title": joinInfo.Title,
+        },
+        UpdateExpression: "SET #mi = :mi, #mId = :mId, #ai = list_append(if_not_exists(#ai, :empty), :ai)",
+        ExpressionAttributeNames: { '#mi': 'MeetingInfo', '#mId': 'meetingId', '#ai': 'AttendeeInfo'},
+        ExpressionAttributeValues : {
+          ":mi": joinInfo.Meeting,
+          ":mId": joinInfo.Meeting.MeetingId,
+          ":ai": [ joinInfo.Attendee.AttendeeId ],
+          ":empty": []
         }
     }
     console.log(params)
     try {
-        await docClient.put(params).promise()
+        await docClient.update(params).promise()
     } catch (err) {
         console.log(err)
         return err
@@ -102,6 +109,7 @@ exports.handler = async (event) => {
       Attendee: attendeeInfo.Attendee
     };
     console.log(joinInfo)
+    await putInfo(joinInfo)    
     const response = {
       statusCode: 200,
       body: JSON.stringify(joinInfo),

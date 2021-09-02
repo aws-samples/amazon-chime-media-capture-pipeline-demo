@@ -19,3 +19,5 @@ yarn.lock
 
 python-layer/**
 !python-layer/requirements.txt
+
+/test
