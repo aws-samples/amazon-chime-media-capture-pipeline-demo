@@ -1,11 +1,7 @@
 import boto3
 import os
-import json
-from botocore.client import Config
 import subprocess
 import shlex
-import re
-import time
 from boto3.dynamodb.conditions import Key
 
 SOURCE_BUCKET = os.environ['MEDIA_CAPTURE_BUCKET']
@@ -19,13 +15,9 @@ def get_attendees(MEETING_ID):
     attendees = table.query(
         IndexName='meetingIdIndex',
         KeyConditionExpression=Key('meetingId').eq(MEETING_ID))
-    
-    # print(attendees)
-    # print(attendees['Items'][0]['AttendeeInfo'])
     return attendees['Items'][0]['AttendeeInfo']
 
 def process_files(objs_keys, MEETING_ID, file_type, *attendee):
-    # print(objs_keys)
     if attendee:
         attendeeStr = "-" + attendee[0]
     else:
@@ -34,18 +26,14 @@ def process_files(objs_keys, MEETING_ID, file_type, *attendee):
     with open('/tmp/' + file_type +attendeeStr+'_list.txt', 'w') as f:
         for k in objs_keys:
             basename = os.path.splitext(k)[0]
-            # print(basename)
             ffmpeg_cmd = "ffmpeg -i /tmp/" + k + " -bsf:v h264_mp4toannexb -f mpegts -framerate 15 -c copy /tmp/" + basename + attendeeStr + "-" + file_type + ".ts -y"
             command1 = shlex.split(ffmpeg_cmd)
-            # print (command1)
             p1 = subprocess.run(command1, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            # print(p1)
             f.write(f'file \'/tmp/{basename}{attendeeStr}-{file_type}.ts\'\n')
 
     ffmpeg_cmd = "ffmpeg -f concat -safe 0 -i /tmp/" + file_type + attendeeStr + "_list.txt  -c copy /tmp/"+file_type+attendeeStr+".mp4 -y"
     command1 = shlex.split(ffmpeg_cmd)
     p1 = subprocess.run(command1, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    print(str(p1))
     s3.upload_file('/tmp/'+file_type+attendeeStr+'.mp4', SOURCE_BUCKET, "captures/" + MEETING_ID + "/processed" + '/processed-'+file_type+attendeeStr+'.mp4')
     processedUrl = s3.generate_presigned_url('get_object', Params={'Bucket': SOURCE_BUCKET, 'Key': "captures/" + MEETING_ID + "/processed" + '/processed'+attendeeStr+"-"+file_type+'.mp4' })
     
@@ -84,13 +72,11 @@ def handler(event, context):
         for object in videoObjects:
             path, filename = os.path.split(object['Key'])
             s3.download_file(SOURCE_BUCKET, object['Key'], '/tmp/' + filename)
-            # print(filename)
             file_list.append(filename)
     
         objs_keys = list(filter(lambda x : 'mp4' in x, file_list))
         print(objs_keys)
         attendees = get_attendees(MEETING_ID)
-        # print(attendees)
         for attendee in attendees:
             print("Concatenating " + file_type + " files for " + attendee  + "...")
             attendeeKeys = list(filter(lambda x: attendee in x, objs_keys))

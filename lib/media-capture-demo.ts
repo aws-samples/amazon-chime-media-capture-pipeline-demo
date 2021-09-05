@@ -64,19 +64,19 @@ export class MediaCaptureDemo extends cdk.Stack {
       
       const sdkBucket = s3.Bucket.fromBucketName(this,'amazon-chime-blog-assets','amazon-chime-blog-assets')
 
-      const sdkLayer = new lambda.LayerVersion(this, 'aws-sdk', {
-        code: new lambda.S3Code(sdkBucket, 'aws-sdk2_924_0.zip'),
-        compatibleRuntimes: [lambda.Runtime.NODEJS_14_X],
-        license: 'Apache-2.0',
-        description: 'aws-sdk Layer',
-      });
+      // const sdkLayer = new lambda.LayerVersion(this, 'aws-sdk', {
+      //   code: new lambda.S3Code(sdkBucket, 'aws-sdk2_924_0.zip'),
+      //   compatibleRuntimes: [lambda.Runtime.NODEJS_14_X],
+      //   license: 'Apache-2.0',
+      //   description: 'aws-sdk Layer',
+      // });
 
       const createLambda = new lambda.Function(this, 'create', {
           code: lambda.Code.fromAsset("src/createLambda"),
           handler: 'create.handler',
           runtime: lambda.Runtime.NODEJS_14_X,
           timeout: Duration.seconds(60),
-          layers: [ sdkLayer ],
+          // layers: [ sdkLayer ],
           environment: {
             MEETINGS_TABLE_NAME: meetingsTable.tableName,
           },
@@ -91,7 +91,7 @@ export class MediaCaptureDemo extends cdk.Stack {
           runtime: lambda.Runtime.NODEJS_14_X,
           role: lambdaChimeRole,
           timeout: Duration.seconds(60),          
-          layers: [ sdkLayer ],
+          // layers: [ sdkLayer ],
           environment: {
             MEDIA_CAPTURE_BUCKET: mediaCaptureBucket.bucketName,
             ACCOUNT_ID: cdk.Aws.ACCOUNT_ID

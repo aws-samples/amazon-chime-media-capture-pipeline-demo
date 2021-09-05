@@ -25,6 +25,10 @@ if ! [ -x "$(command -v cdk)" ]; then
   echo 'Error: cdk is not installed. https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_install' >&2
   exit 1
 fi
+if ! [ -x "$(command -v docker)" ]; then
+  echo 'Error: docker is not installed. https://docs.docker.com/get-docker/' >&2
+  exit 1
+fi
 if [ -f "cdk.context.json" ]; then
     echo ""
     echo "INFO: Removing cdk.context.json"
