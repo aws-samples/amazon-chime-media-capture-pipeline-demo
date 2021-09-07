@@ -1,4 +1,4 @@
- #!/bin/bash 
+#!/bin/bash 
 if ! [ -x "$(command -v node)" ]; then
   echo 'Error: node is not installed. https://nodejs.org/en/download/' >&2
   exit 1
@@ -37,12 +37,10 @@ else
     echo ""
     echo "INFO: cdk.context.json not present, nothing to remove"
 fi
-if [ ! -f "yarn.lock" ]; then
-    echo ""
-    echo "Installing Packages"
-    echo ""
-    yarn
-fi
+echo ""
+echo "Installing Packages"
+echo ""
+yarn
 echo ""
 echo "Building CDK"
 echo ""

@@ -3,7 +3,7 @@
 This demo will build and configure several services within AWS so that you can capture the media of a meeting to an S3 bucket and then process that output into a complete video file.
 ## Overview
 
-![Overview](images/media-capture-overview.png)
+![Overview](images/Overview.png)
 
 ## Requirements
 - node V12+ [installed](https://nodejs.org/en/download/)
@@ -20,17 +20,17 @@ This demo will build and configure several services within AWS so that you can c
 
 ## Resources Created
 - S3 Bucket - Used for storage of the captured media as well as the processed media
+- Meetings Table - DynamoDB used to store meeting and attendee information
 - Create Lambda - Used to create the meeting and join users to the Chime SDK Meeting.  
 - Record Lambda - Used to start and stop the media capture pipeline.
 - Process Lambda - Containerized image used after the recording has stopped to process the video from separate chunks into a single mp4 file.
 - API Gateway - Used to trigger Lambdas from the client side browser
-<!-- - SDK Layer - Used by the Create and Record Lambdas to have access to Chime APIs that are not currently available in Lambda -->
 - EventBridge Rule - Rule used to trigger Process Lambda when Media Capture Pipeline is deleted.  
 ## Deployment
 
 ### Back-end Resources
-- Clone this repo: `git clone ENTER_REPO_NAME`
-- `cd REPO_NAME`
+- Clone this repo: `git clone https://github.com/aws-samples/amazon-chime-media-capture-pipeline-demo`
+- `cd amazon-chime-media-capture-pipeline-demo`
 - `./deploy.sh`
 - Accept prompts for CDK deployment
 
@@ -42,7 +42,7 @@ This demo will build and configure several services within AWS so that you can c
 ### Cloud9 Deployment Instructions
 ```
 nvm install 12
-sudo yum install jq
+yum install jq
 npm install -g aws-cdk
 npm install -g yarn
 ./deploy.sh
@@ -90,5 +90,5 @@ If the account being used is configured to capture all attendees and audio, audi
 
 ## Cleanup
 
-To clean up this demo: `cdk destroy`.  Additionally, the ffmpeg layer that was created will need to be removed.  The S3 bucket that is created will be emptied and destroyed as part of this destroy so if you wish to keep the media files, they should be moved.  
+To clean up this demo: `cdk destroy`.  The S3 bucket that is created will be emptied and destroyed as part of this destroy so if you wish to keep the media files, they should be moved.  
 
