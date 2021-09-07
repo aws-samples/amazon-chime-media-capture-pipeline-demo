@@ -15,7 +15,7 @@ This demo will build and configure several services within AWS so that you can c
   - Be sure to have the latest version installed.  If you need to upgrade, uninstall with `npm uninstall -g aws-cdk` and then reinstall.
 - AWS CDK [bootstrapped](https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html)
   - `cdk bootstrap`
-  - Docker [installed](https://docs.docker.com/get-docker/)
+- Docker [installed](https://docs.docker.com/get-docker/)
 - Deployment must be done in us-east-1
 
 ## Resources Created
