@@ -1,6 +1,7 @@
 # Amazon Chime Meeting SDK Media Capture Demo
 
-This demo will build and configure several services within AWS so that you can capture the media of a meeting to an S3 bucket and then process that output into a complete video file.
+This demo is a variation of the main branch for media capture demo. This particular demo stitches audio files together in .mp4 format and meeting events together in .txt format. The source of these files is from the Amazon Chime SDK Media Capture bucket in S3.
+
 ## Overview
 
 ![Overview](images/Overview.png)
