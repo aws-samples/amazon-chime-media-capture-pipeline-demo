@@ -41,6 +41,10 @@ def process_files(objs_keys, MEETING_ID, file_type, *attendee):
     
     
 def handler(event, context):
+    #This demo is limited in scope to give a starting point for how to process 
+    #produced audio files and should include error checking and more robust logic 
+    #for production use. Large meetings and/or long duration may lead to incomplete 
+    #recordings in this demo.    
     print(event)
     MEETING_ID = event.get('detail').get('meetingId')
     print(MEETING_ID)
