@@ -12,10 +12,5 @@ cdk.out
 cdk-outputs.json
 .DS_Store
 
-sdk
-site-packages
 *.drawio
-yarn.lock
 
-python-layer/**
-!python-layer/requirements.txt

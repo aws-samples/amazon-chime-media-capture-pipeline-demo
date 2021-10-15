@@ -5,6 +5,8 @@ import apigateway = require('@aws-cdk/aws-apigateway');
 import iam = require('@aws-cdk/aws-iam')
 import s3 = require('@aws-cdk/aws-s3');
 import { Duration } from '@aws-cdk/core';
+import events = require('@aws-cdk/aws-events');
+import targets = require('@aws-cdk/aws-events-targets')
 export class MediaCaptureDemo extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string) {
     super(scope, id);
@@ -18,6 +20,15 @@ export class MediaCaptureDemo extends cdk.Stack {
         timeToLiveAttribute: 'TTL',
         billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,            
       });
+      
+      meetingsTable.addGlobalSecondaryIndex({
+        indexName: 'meetingIdIndex',
+        partitionKey: {
+          name: 'meetingId',
+          type: dynamodb.AttributeType.STRING
+        },
+        projectionType: dynamodb.ProjectionType.ALL
+      })
 
       const mediaCaptureBucket = new s3.Bucket(this, 'mediaCaptureBucket', {
         publicReadAccess: false,
@@ -53,19 +64,19 @@ export class MediaCaptureDemo extends cdk.Stack {
       
       const sdkBucket = s3.Bucket.fromBucketName(this,'amazon-chime-blog-assets','amazon-chime-blog-assets')
 
-      const sdkLayer = new lambda.LayerVersion(this, 'aws-sdk', {
-        code: new lambda.S3Code(sdkBucket, 'aws-sdk2_924_0.zip'),
-        compatibleRuntimes: [lambda.Runtime.NODEJS_14_X],
-        license: 'Apache-2.0',
-        description: 'aws-sdk Layer',
-      });
+      // const sdkLayer = new lambda.LayerVersion(this, 'aws-sdk', {
+      //   code: new lambda.S3Code(sdkBucket, 'aws-sdk2_924_0.zip'),
+      //   compatibleRuntimes: [lambda.Runtime.NODEJS_14_X],
+      //   license: 'Apache-2.0',
+      //   description: 'aws-sdk Layer',
+      // });
 
       const createLambda = new lambda.Function(this, 'create', {
           code: lambda.Code.fromAsset("src/createLambda"),
           handler: 'create.handler',
           runtime: lambda.Runtime.NODEJS_14_X,
           timeout: Duration.seconds(60),
-          layers: [ sdkLayer ],
+          // layers: [ sdkLayer ],
           environment: {
             MEETINGS_TABLE_NAME: meetingsTable.tableName,
           },
@@ -80,7 +91,7 @@ export class MediaCaptureDemo extends cdk.Stack {
           runtime: lambda.Runtime.NODEJS_14_X,
           role: lambdaChimeRole,
           timeout: Duration.seconds(60),          
-          layers: [ sdkLayer ],
+          // layers: [ sdkLayer ],
           environment: {
             MEDIA_CAPTURE_BUCKET: mediaCaptureBucket.bucketName,
             ACCOUNT_ID: cdk.Aws.ACCOUNT_ID
@@ -94,7 +105,8 @@ export class MediaCaptureDemo extends cdk.Stack {
           cmd: [ 'app.handler' ],
           entrypoint: ['/entry.sh'],}),
           environment: {
-            MEDIA_CAPTURE_BUCKET: mediaCaptureBucket.bucketName
+            MEDIA_CAPTURE_BUCKET: mediaCaptureBucket.bucketName,
+            MEETINGS_TABLE_NAME: meetingsTable.tableName            
           },
         timeout: Duration.minutes(15),
         memorySize: 10240
@@ -102,6 +114,18 @@ export class MediaCaptureDemo extends cdk.Stack {
     
       meetingsTable.grantReadWriteData(processLambda);
       mediaCaptureBucket.grantReadWrite(processLambda);
+
+      const processOutputRule = new events.Rule(this, 'processRecordingRule', {
+        eventPattern:{
+          "source": ["aws.chime"],
+          "detailType": ["Chime Media Pipeline State Change"],
+          "detail": {
+            "eventType": ["chime:MediaPipelineDeleted"]
+          }
+        }
+      })
+
+    processOutputRule.addTarget(new targets.LambdaFunction(processLambda))
 
       const api = new apigateway.RestApi(this, 'meetingApi', {
           endpointConfiguration: {
@@ -123,11 +147,6 @@ export class MediaCaptureDemo extends cdk.Stack {
       const recordIntegration = new apigateway.LambdaIntegration(recordingLambda);
       record.addMethod('POST', recordIntegration);
       addCorsOptions(record);
-
-      const process = api.root.addResource('process');
-      const processIntegration = new apigateway.LambdaIntegration(processLambda)
-      process.addMethod('POST', processIntegration);
-      addCorsOptions(process);
     };
   };
 

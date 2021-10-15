@@ -1,4 +1,4 @@
- #!/bin/bash 
+#!/bin/bash 
 if ! [ -x "$(command -v node)" ]; then
   echo 'Error: node is not installed. https://nodejs.org/en/download/' >&2
   exit 1
@@ -25,6 +25,10 @@ if ! [ -x "$(command -v cdk)" ]; then
   echo 'Error: cdk is not installed. https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_install' >&2
   exit 1
 fi
+if ! [ -x "$(command -v docker)" ]; then
+  echo 'Error: docker is not installed. https://docs.docker.com/get-docker/' >&2
+  exit 1
+fi
 if [ -f "cdk.context.json" ]; then
     echo ""
     echo "INFO: Removing cdk.context.json"
@@ -33,12 +37,10 @@ else
     echo ""
     echo "INFO: cdk.context.json not present, nothing to remove"
 fi
-if [ ! -f "yarn.lock" ]; then
-    echo ""
-    echo "Installing Packages"
-    echo ""
-    yarn
-fi
+echo ""
+echo "Installing Packages"
+echo ""
+yarn
 echo ""
 echo "Building CDK"
 echo ""

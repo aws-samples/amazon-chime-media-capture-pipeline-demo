@@ -74,21 +74,8 @@ const App = () => {
     if (isRecording) {
       console.log("Stopping Record")
       recordRequest.data.mediaPipeLine = mediaPipeLine
-      
-      const processRequest = {
-        url: API_URL + 'process',
-        method: 'post',
-        headers: {
-          'Content-Type': 'applications/json',        
-        },
-        data: {
-          meetingId:  meetingDetails.meetingInfo.MeetingId
-        }
-      }
       try {
         await axios(recordRequest)
-        const processInfo = await axios(processRequest)
-        console.log("Processed File: " + processInfo.data.processedUrl)
         } catch (err) {
         console.log(err)
       }
