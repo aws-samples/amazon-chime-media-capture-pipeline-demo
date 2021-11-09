@@ -8,6 +8,7 @@ node_modules
 cdk.out
 
 !src/**
+src/**/node_modules
 
 cdk-outputs.json
 .DS_Store
