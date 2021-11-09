@@ -42,6 +42,10 @@ echo "Building CDK"
 echo ""
 yarn run build
 echo ""
+echo "Bootstrapping CDK"
+echo ""
+npx cdk bootstrap
+echo ""
 echo "Deploying CDK"
 echo ""
 npx cdk deploy -O client/src/cdk-outputs.json
