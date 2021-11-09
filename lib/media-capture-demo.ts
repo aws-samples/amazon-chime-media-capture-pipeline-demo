@@ -76,10 +76,11 @@ export class MediaCaptureDemo extends cdk.Stack {
 
     const createLambda = new NodejsFunction(this, "createLambda", {
       entry: "src/createLambda/create.js",
-      bundling: {
-        externalModules: [],
-      },
       depsLockFilePath: "src/createLambda/package-lock.json",
+      bundling: {
+        externalModules: ["aws-sdk"],
+        nodeModules: ["uuid"],
+      },
       runtime: lambda.Runtime.NODEJS_14_X,
       timeout: Duration.seconds(60),
       environment: {
@@ -92,10 +93,11 @@ export class MediaCaptureDemo extends cdk.Stack {
 
     const recordingLambda = new NodejsFunction(this, "recordingLambda", {
       entry: "src/recordingLambda/recording.js",
-      bundling: {
-        externalModules: [],
-      },
       depsLockFilePath: "src/recordingLambda/package-lock.json",
+      bundling: {
+        externalModules: ["aws-sdk"],
+        nodeModules: ["uuid"],
+      },
       runtime: lambda.Runtime.NODEJS_14_X,
       role: lambdaChimeRole,
       timeout: Duration.seconds(60),
