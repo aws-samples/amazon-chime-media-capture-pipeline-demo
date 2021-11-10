@@ -10,8 +10,8 @@ import targets = require("@aws-cdk/aws-events-targets");
 import { NodejsFunction } from "@aws-cdk/aws-lambda-nodejs";
 
 export class MediaCaptureDemo extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string) {
-    super(scope, id);
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
     const meetingsTable = new dynamodb.Table(this, "meetings", {
       partitionKey: {

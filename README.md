@@ -10,10 +10,11 @@ This demo is a variation of the main branch for media capture demo. This particu
 
 - node V12+ [installed](https://nodejs.org/en/download/)
 - npm [installed](https://www.npmjs.com/get-npm)
+- jq [installed](https://stedolan.github.io/jq/download/)
 - yarn [installed](https://yarnpkg.com/getting-started/install)
 - AWS CLI [installed](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 - Docker [installed](https://docs.docker.com/get-docker/)
-- Deployment must be done in us-east-1
+- Deployment _must_ be done in us-east-1
 
 ## Resources Created
 
@@ -33,6 +34,7 @@ This demo is a variation of the main branch for media capture demo. This particu
 - `cd amazon-chime-media-capture-pipeline-demo`
 - `./deploy.sh`
 - Accept prompts for CDK deployment
+- Deployment will automatically be done in us-east-1. More information regarding region usage With Chime SDK and media pipelines can be found [here](https://docs.aws.amazon.com/chime/latest/dg/sdk-available-regions.html)
 
 ### Local client
 
@@ -45,8 +47,9 @@ This demo is a variation of the main branch for media capture demo. This particu
 Resize Cloud9 Instance with script [here](https://docs.aws.amazon.com/cloud9/latest/user-guide/move-environment.html).
 
 ```
-nvm install 12
+nvm install 16
 npm install -g yarn
+sudo yum install jq
 ./deploy.sh
 cd client
 yarn

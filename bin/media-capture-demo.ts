@@ -1,7 +1,11 @@
 #!/usr/bin/env node
-import * as cdk from '@aws-cdk/core';
-import { MediaCaptureDemo } from '../lib/media-capture-demo';
+import * as cdk from "@aws-cdk/core";
+import { MediaCaptureDemo } from "../lib/media-capture-demo";
 
 const app = new cdk.App();
 
-new MediaCaptureDemo(app, 'MediaCaptureDemo');
+new MediaCaptureDemo(app, "MediaCaptureDemo", {
+  env: {
+    region: "us-east-1",
+  },
+});

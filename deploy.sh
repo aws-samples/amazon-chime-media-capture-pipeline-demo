@@ -21,6 +21,10 @@ if ! [ -x "$(command -v aws)" ]; then
   echo 'Error: aws is not installed. https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html' >&2
   exit 1
 fi
+if ! [ -x "$(command -v jq)" ]; then
+  echo 'Error: jq is not installed. https://stedolan.github.io/jq/download/' >&2
+  exit 1
+fi
 if ! [ -x "$(command -v docker)" ]; then
   echo 'Error: docker is not installed. https://docs.docker.com/get-docker/' >&2
   exit 1
@@ -44,7 +48,8 @@ yarn run build
 echo ""
 echo "Bootstrapping CDK"
 echo ""
-npx cdk bootstrap
+ACCOUNT_ID=$( aws sts get-caller-identity | jq -r '.Account' )
+npx cdk bootstrap aws://$ACCOUNT_ID/us-east-1
 echo ""
 echo "Deploying CDK"
 echo ""
