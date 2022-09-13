@@ -23,6 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 !*.js
-cdk-outputs.json
 
-# config.json
+config.json

@@ -427,7 +427,7 @@ Once the media concatenation pipeline completes and the artifacts are stored in 
 7. Concat bucket `OBJECT_CREATED` [triggers](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example.html) [`postMeeting`](src/resources/postMeeting/postMeeting.ts) Lambda function
 8. postMeeting Lambda function adds S3 key information to the Output Table
 
-[PostMeeting](images/PostMeeting.png)
+![PostMeeting](images/PostMeeting.png)
 
 ## Service Linked Roles
 
