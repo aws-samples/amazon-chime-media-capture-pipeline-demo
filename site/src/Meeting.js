@@ -24,6 +24,10 @@ import './App.css';
 import { AmplifyConfig as config } from './Config';
 import { Amplify, API, Auth } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
+import Extras from './Extras'
+import SpeakerTimer from './SpeakerTimer'
+
+
 Amplify.configure(config);
 Amplify.Logger.LOG_LEVEL = 'DEBUG';
 console.log(config.API);
@@ -156,8 +160,11 @@ export const Meetings = () => {
                             </div>
                         ))}
                     </div>
+              
                 </SpaceBetween>
             </Container>
+            <SpeakerTimer />
+                  <Extras />
         </SpaceBetween>
     );
 };

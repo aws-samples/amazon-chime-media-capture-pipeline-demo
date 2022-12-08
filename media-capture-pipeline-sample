@@ -1,0 +1,10 @@
+Mediacapturepipeline-sample
+
+/Users/zip/Documents/Build/AB-III/amazon-chime-media-capture-pipeline-demo
+
+Outputs:
+AmazonChimeSDKWithTranscribe.distribution = dkx91ydm2bznn.cloudfront.net
+AmazonChimeSDKWithTranscribe.infrastructureChimeSDKMeetingWithTranscribeAPIEndpoint122D8B11 = https://uvcxy8lcf5.execute-api.us-east-1.amazonaws.com/prod/
+AmazonChimeSDKWithTranscribe.siteBucket = amazonchimesdkwithtransc-sitewebsitebucketbc20a56-brs49zweqnia
+Stack ARN:
+arn:aws:cloudformation:us-east-1:021152544457:stack/AmazonChimeSDKWithTranscribe/74076fe0-753e-11ed-9c06-0e15329f3d0b
