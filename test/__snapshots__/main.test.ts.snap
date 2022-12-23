@@ -168,7 +168,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
             "Arn",
           ],
         },
-        "Runtime": "python3.7",
+        "Runtime": "python3.9",
         "Timeout": 300,
       },
       "Type": "AWS::Lambda::Function",
@@ -2007,7 +2007,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "36a759502f6fc9073f0433fc75354198461abada99e4fe8751f86ff854b9be29.zip",
+          "S3Key": "888dd5270936d2bf6ca195941511ab8c2bc88c9eb66fe303c35db11cda1a2741.zip",
         },
         "Environment": Object {
           "Variables": Object {
@@ -2497,7 +2497,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "6db5b4b198eda243da1446280642ba13e610977ca98b3282774c92e69d269808.zip",
+          "S3Key": "04f9654465473012ed4a1ddb4714edb08a316cae098767a0723f8a12bccbf680.zip",
         },
         "Environment": Object {
           "Variables": Object {
@@ -2697,7 +2697,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "6dea0d5f8e6e46f5f895e9434ab97802db88d27bcbc09b877caf8681976b6e15.zip",
+          "S3Key": "9b2cfd239c3e08a83ce23a316f2c2876a111695acb35eb1b039f0fede14f390f.zip",
         },
         "Environment": Object {
           "Variables": Object {
