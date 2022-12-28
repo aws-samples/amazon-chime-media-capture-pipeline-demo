@@ -1,12 +1,20 @@
 const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkTypeScriptApp({
-  cdkVersion: '2.41.0',
+  cdkVersion: '2.57.0',
   defaultReleaseBranch: 'main',
   name: 'amazon-chime-sdk-meeting-with-with-transcribe',
-  deps: ['fs-extra', '@types/fs-extra'],
   appEntrypoint: 'amazon-chime-sdk-meeting-with-transcribe.ts',
-  devDeps: ['esbuild', 'eslint-import-resolver-typescript'],
-  deps: ['fs-extra', '@types/fs-extra'],
+  devDeps: ['esbuild'],
+  deps: [
+    'fs-extra',
+    '@types/fs-extra',
+    '@aws-sdk/client-chime-sdk-meetings',
+    '@aws-sdk/client-chime-sdk-media-pipelines',
+    '@aws-sdk/lib-dynamodb',
+    '@aws-sdk/client-dynamodb',
+    '@types/aws-lambda',
+    'aws-lambda',
+  ],
   autoApproveOptions: {
     secret: 'GITHUB_TOKEN',
     allowedUsernames: ['schuettc'],

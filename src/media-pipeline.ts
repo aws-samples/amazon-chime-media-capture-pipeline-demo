@@ -129,9 +129,6 @@ export class MediaPipeline extends Construct {
 
     const eventBridgeLambda = new NodejsFunction(this, 'eventBridgeLambda', {
       entry: 'src/resources/eventBridge/eventBridge.ts',
-      bundling: {
-        nodeModules: ['@aws-sdk/client-chime-sdk-media-pipelines'],
-      },
       runtime: Runtime.NODEJS_16_X,
       handler: 'lambdaHandler',
       architecture: Architecture.ARM_64,
@@ -182,9 +179,6 @@ export class MediaPipeline extends Construct {
 
     const postMeetingLambda = new NodejsFunction(this, 'postMeetingLambda', {
       entry: 'src/resources/postMeeting/postMeeting.ts',
-      bundling: {
-        nodeModules: ['@aws-sdk/lib-dynamodb', '@aws-sdk/client-dynamodb'],
-      },
       runtime: Runtime.NODEJS_16_X,
       handler: 'lambdaHandler',
       architecture: Architecture.ARM_64,
