@@ -993,7 +993,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           },
         ],
         "SourceObjectKeys": Array [
-          "045c94c24f3031aef6ea30937b6ec73d4a65d1b3ea62310dabfb56967b6fc1fb.zip",
+          "daea22323b7dc65fb7d447e6cbf6c6431867e9c141b92fae793a685531a53472.zip",
           "5c89cc96a4737b5653e6e4eabef1c7f3e73bbb6884d41e4d857b951a20ec618a.zip",
         ],
       },
