@@ -15,6 +15,7 @@ import {
   CreateMeetingCommandInput,
   CreateAttendeeCommandInput,
   CreateAttendeeCommandOutput,
+  GetMeetingCommand,
   StartMeetingTranscriptionCommand,
   Attendee,
   Meeting,
@@ -158,7 +159,10 @@ async function meetingRequest(event: APIGatewayEvent) {
     const attendeeEmail = body.email;
     if (currentMeetings) {
       for (let meeting of currentMeetings) {
-        if (meeting.joinInfo.Attendee.length < 2) {
+        try {
+          await chimeSdkMeetings.send(
+            new GetMeetingCommand({ MeetingId: meeting.meetingId }),
+          );
           console.log('Adding an attendee to an existing meeting');
           console.log(JSON.stringify(meeting.joinInfo));
           const attendeeInfo = await createAttendee(
@@ -179,6 +183,9 @@ async function meetingRequest(event: APIGatewayEvent) {
           response.body = JSON.stringify(responseInfo);
           console.info('joinInfo: ' + JSON.stringify(response));
           return response;
+        } catch (err) {
+          console.log(`Error: ${err}`);
+          continue;
         }
       }
     }

@@ -27,7 +27,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   },
   scripts: {
     launch:
-      'yarn && yarn projen && yarn build && yarn cdk bootstrap && yarn cdk deploy --hotswap && yarn configLocal',
+      'yarn && yarn projen && yarn build && yarn cdk bootstrap && yarn cdk deploy && yarn configLocal',
   },
 });
 

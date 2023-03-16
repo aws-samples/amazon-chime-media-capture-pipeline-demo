@@ -34,6 +34,7 @@ export const Meetings = () => {
     const [attendeeId, setAttendeeId] = useState('');
     const [transcripts, setTranscripts] = useState([]);
     const [lines, setLine] = useState([]);
+    const [currentLine, setCurrentLine] = useState('');
     const audioVideo = useAudioVideo();
 
     const { toggleVideo } = useLocalVideo();
@@ -50,13 +51,17 @@ export const Meetings = () => {
     useEffect(() => {
         if (transcripts) {
             if (transcripts.results !== undefined) {
+                console.log(`Transcript Results:  ${JSON.stringify(transcripts.results)}`);
                 if (!transcripts.results[0].isPartial) {
-                    if (transcripts.results[0].alternatives[0].items[0].confidence > 0.5) {
-                        setLine((lines) => [
-                            ...lines,
-                            `${transcripts.results[0].alternatives[0].items[0].attendee.externalUserId}: ${transcripts.results[0].alternatives[0].transcript}`,
-                        ]);
-                    }
+                    setLine((lines) => [
+                        ...lines,
+                        `${transcripts.results[0].alternatives[0].items[0].attendee.externalUserId}: ${transcripts.results[0].alternatives[0].transcript}`,
+                    ]);
+                    setCurrentLine('');
+                } else {
+                    setCurrentLine(
+                        `${transcripts.results[0].alternatives[0].items[0].attendee.externalUserId}: ${transcripts.results[0].alternatives[0].transcript}`,
+                    );
                 }
             }
         }
@@ -155,6 +160,7 @@ export const Meetings = () => {
                                 <br />
                             </div>
                         ))}
+                        {currentLine.length > 0 && currentLine}
                     </div>
                 </SpaceBetween>
             </Container>

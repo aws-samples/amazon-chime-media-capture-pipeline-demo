@@ -161,7 +161,7 @@
       "name": "launch",
       "steps": [
         {
-          "exec": "yarn && yarn projen && yarn build && yarn cdk bootstrap && yarn cdk deploy --hotswap && yarn configLocal"
+          "exec": "yarn && yarn projen && yarn build && yarn cdk bootstrap && yarn cdk deploy && yarn configLocal"
         }
       ]
     },

@@ -15,7 +15,7 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "amazon-chime-sdk-component-library-react": "^3.2.0",
-    "amazon-chime-sdk-js": "^3.7.0",
+    "amazon-chime-sdk-js": "^3.11.0",
     "aws-amplify": "^4.3.18",
     "aws-sdk": "^2.1210.0",
     "babel-loader": "^8.2.4",
