@@ -6,9 +6,19 @@ import {
   GetMediaPipelineCommand,
   GetMediaPipelineCommandOutput,
 } from '@aws-sdk/client-chime-sdk-media-pipelines';
+import {
+  ChimeSDKMeetingsClient,
+  ListAttendeesCommand,
+  DeleteMeetingCommand,
+  DeleteAttendeeCommand,
+} from '@aws-sdk/client-chime-sdk-meetings';
 import { Handler } from 'aws-cdk-lib/aws-lambda';
 
 const chimeSdkMediaPipelinesClient = new ChimeSDKMediaPipelinesClient({
+  region: 'us-east-1',
+});
+
+const chimeSdkMeetingsClient = new ChimeSDKMeetingsClient({
   region: 'us-east-1',
 });
 var concatBucketArn = process.env.CONCAT_BUCKET_ARN;
@@ -18,6 +28,8 @@ interface Detail {
   eventType: string;
   timestamp: number;
   meetingId: string;
+  attendeeId: string;
+  externalUserId: string;
   externalMeetingId: string;
   mediaPipelineId: string;
   mediaRegion: string;
@@ -40,6 +52,29 @@ export const lambdaHandler: Handler = async (
   console.info(event);
 
   switch (event['detail-type']) {
+    case 'Chime Meeting State Change':
+      if (
+        event.detail.eventType == 'chime:AttendeeLeft' ||
+        event.detail.eventType == 'chime:AttendeeDropped'
+      ) {
+        await deleteAttendee(event.detail.meetingId, event.detail.attendeeId);
+      }
+
+      if (event.detail.eventType == 'chime:AttendeeDeleted') {
+        const meetingAttendees = await listAttendees(event.detail.meetingId);
+
+        if (meetingAttendees && meetingAttendees.Attendees) {
+          if (
+            meetingAttendees.Attendees.length == 1 &&
+            meetingAttendees.Attendees[0].ExternalUserId?.slice(0, 13) ==
+              'MediaPipeline'
+          ) {
+            await deleteMeeting(event.detail.meetingId);
+          }
+        }
+      }
+
+      break;
     case 'Chime Media Pipeline State Change':
       if (event.detail.eventType == 'chime:MediaPipelineInProgress') {
         const mediaCapturePipeline = await getMediaPipeline(
@@ -58,6 +93,7 @@ export const lambdaHandler: Handler = async (
           );
         }
       }
+      break;
   }
   return null;
 };
@@ -72,6 +108,41 @@ async function getMediaPipeline(mediaPipelineId: string) {
   } catch (error) {
     console.log(error);
     return false;
+  }
+}
+
+async function listAttendees(meetingId: string) {
+  try {
+    const listAttendeesResponse = await chimeSdkMeetingsClient.send(
+      new ListAttendeesCommand({ MeetingId: meetingId }),
+    );
+    return listAttendeesResponse;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+async function deleteAttendee(meetingId: string, attendeeId: string) {
+  try {
+    await chimeSdkMeetingsClient.send(
+      new DeleteAttendeeCommand({
+        MeetingId: meetingId,
+        AttendeeId: attendeeId,
+      }),
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function deleteMeeting(meetingId: string) {
+  try {
+    await chimeSdkMeetingsClient.send(
+      new DeleteMeetingCommand({ MeetingId: meetingId }),
+    );
+  } catch (error) {
+    console.log(error);
   }
 }
 

@@ -72,14 +72,6 @@ export class Infrastructure extends Construct {
 
     const meetingLambda = new NodejsFunction(this, 'meetingLambda', {
       entry: 'src/resources/meetingInfo/meetingInfo.ts',
-      bundling: {
-        nodeModules: [
-          '@aws-sdk/client-chime-sdk-meetings',
-          '@aws-sdk/client-chime-sdk-media-pipelines',
-          '@aws-sdk/lib-dynamodb',
-          '@aws-sdk/client-dynamodb',
-        ],
-      },
       runtime: Runtime.NODEJS_16_X,
       handler: 'lambdaHandler',
       architecture: Architecture.ARM_64,

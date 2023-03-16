@@ -40,9 +40,6 @@ export class Cognito extends Construct {
 
     const domainValidator = new NodejsFunction(this, 'domainValidator', {
       entry: 'src/resources/cognitoDomain/domainValidator.js',
-      bundling: {
-        externalModules: ['aws-sdk'],
-      },
       runtime: Runtime.NODEJS_14_X,
       architecture: Architecture.ARM_64,
       timeout: Duration.seconds(60),
@@ -75,14 +72,16 @@ export class Cognito extends Construct {
         otp: true,
       },
       userInvitation: {
-        emailSubject: 'Your Click-To-Call web app temporary password',
+        emailSubject:
+          'Your Amazon Chime SDK Media Capture Pipeline Demo web app temporary password',
         emailBody:
-          'Your Click-To-Call web app username is {username} and temporary password is {####}',
+          'Your Amazon Chime SDK Media Capture Pipeline Demo web app username is {username} and temporary password is {####}',
       },
       userVerification: {
-        emailSubject: 'Verify your new Click-To-Call web app account',
+        emailSubject:
+          'Verify your new Amazon Chime SDK Media Capture Pipeline Demo web app account',
         emailBody:
-          'The verification code to your new Click-To-Call web app account is {####}',
+          'The verification code to your new Amazon Chime SDK Media Capture Pipeline Demo web app account is {####}',
       },
     });
 

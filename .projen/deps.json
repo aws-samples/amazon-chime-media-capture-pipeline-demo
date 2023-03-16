@@ -21,7 +21,7 @@
     },
     {
       "name": "aws-cdk",
-      "version": "^2.41.0",
+      "version": "^2.57.0",
       "type": "build"
     },
     {
@@ -76,12 +76,46 @@
       "type": "build"
     },
     {
+      "name": "@types/responselike",
+      "version": "1.0.0",
+      "type": "override"
+    },
+    {
+      "name": "got",
+      "version": "12.3.1",
+      "type": "override"
+    },
+    {
+      "name": "@aws-sdk/client-chime-sdk-media-pipelines",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-sdk/client-chime-sdk-meetings",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-sdk/client-dynamodb",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-sdk/lib-dynamodb",
+      "type": "runtime"
+    },
+    {
+      "name": "@types/aws-lambda",
+      "type": "runtime"
+    },
+    {
       "name": "@types/fs-extra",
       "type": "runtime"
     },
     {
       "name": "aws-cdk-lib",
-      "version": "^2.41.0",
+      "version": "^2.57.0",
+      "type": "runtime"
+    },
+    {
+      "name": "aws-lambda",
       "type": "runtime"
     },
     {

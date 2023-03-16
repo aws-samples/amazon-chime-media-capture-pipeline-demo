@@ -390,15 +390,15 @@ def submit_response(event: dict, context, response_status: str, error_message: s
         "AdminCreateUserConfig": Object {
           "AllowAdminCreateUserOnly": false,
           "InviteMessageTemplate": Object {
-            "EmailMessage": "Your Click-To-Call web app username is {username} and temporary password is {####}",
-            "EmailSubject": "Your Click-To-Call web app temporary password",
+            "EmailMessage": "Your Amazon Chime SDK Media Capture Pipeline Demo web app username is {username} and temporary password is {####}",
+            "EmailSubject": "Your Amazon Chime SDK Media Capture Pipeline Demo web app temporary password",
           },
         },
         "AutoVerifiedAttributes": Array [
           "email",
         ],
-        "EmailVerificationMessage": "The verification code to your new Click-To-Call web app account is {####}",
-        "EmailVerificationSubject": "Verify your new Click-To-Call web app account",
+        "EmailVerificationMessage": "The verification code to your new Amazon Chime SDK Media Capture Pipeline Demo web app account is {####}",
+        "EmailVerificationSubject": "Verify your new Amazon Chime SDK Media Capture Pipeline Demo web app account",
         "EnabledMfas": Array [
           "SMS_MFA",
           "SOFTWARE_TOKEN_MFA",
@@ -434,8 +434,8 @@ def submit_response(event: dict, context, response_status: str, error_message: s
         ],
         "VerificationMessageTemplate": Object {
           "DefaultEmailOption": "CONFIRM_WITH_CODE",
-          "EmailMessage": "The verification code to your new Click-To-Call web app account is {####}",
-          "EmailSubject": "Verify your new Click-To-Call web app account",
+          "EmailMessage": "The verification code to your new Amazon Chime SDK Media Capture Pipeline Demo web app account is {####}",
+          "EmailSubject": "Verify your new Amazon Chime SDK Media Capture Pipeline Demo web app account",
           "SmsMessage": "The verification code to your new account is {####}",
         },
       },
