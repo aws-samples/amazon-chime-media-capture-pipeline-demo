@@ -731,6 +731,11 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           },
           "S3Key": "9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd.zip",
         },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_CA_BUNDLE": "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem",
+          },
+        },
         "Handler": "index.handler",
         "Layers": Array [
           Object {
@@ -890,7 +895,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "40aa87cdf43c4095cec18bc443965f22ab2f8c1ace47e482a0ba4e35d83b0cc9.zip",
+          "S3Key": "350185a1069fa20a23a583e20c77f6844218bd73097902362dc94f1a108f5d89.zip",
         },
         "Description": Object {
           "Fn::Join": Array [
@@ -1037,7 +1042,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "c33f77e71bef2fbd8299fa87f0d89b792b981d73e22dba92b2dd13caec415dfc.zip",
+          "S3Key": "10972873dd8a3bc33ae1cb91d834617be249fd84bed5bdbb6ffbb581650aea83.zip",
         },
         "Description": "/opt/awscli/aws",
       },
@@ -1103,7 +1108,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           },
         ],
         "SourceObjectKeys": Array [
-          "fe0edab353cc5eb98300034f03f0be334bd2a3fa88a3fa40876062db58349856.zip",
+          "71c6df1f4e7e989604cb4fcf87abe3c9f41a8952926dee933e9083f7bf5c13ad.zip",
           "5c89cc96a4737b5653e6e4eabef1c7f3e73bbb6884d41e4d857b951a20ec618a.zip",
         ],
       },
@@ -2117,7 +2122,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "e41e8648c70130bcc00a3c925c1abc33d63040581dd0e6dd2d6688f644a9e434.zip",
+          "S3Key": "390ea5116279db8227f4066cab3f477e73fb7e79b494dd1464722dc2741ee9d4.zip",
         },
         "Environment": Object {
           "Variables": Object {
@@ -2607,7 +2612,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "fa70be66235d655e3e29100fc771bfb40ce2f509be47856ec94090aec11e4e46.zip",
+          "S3Key": "1a9a96992691ae513059d4a6f953159229281dd19a71715db9d39b608d92b147.zip",
         },
         "Environment": Object {
           "Variables": Object {
@@ -2807,7 +2812,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "a608616aa5542892cfa8d9959d78fa0c459ee9db7c778ca8e846d02bbb060186.zip",
+          "S3Key": "2daa1ea3a0b7171633dee7a4977bd4d0970c7e359a327f184de82b62aecc2dc6.zip",
         },
         "Environment": Object {
           "Variables": Object {
