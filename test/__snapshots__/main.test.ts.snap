@@ -1042,7 +1042,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "0e38c73676c042efb04d698981ab7a9706991a146e59250a537916db0e9bde39.zip",
+          "S3Key": "88b83f5f61fe6f85ffcd0a37a09a8f3be90e7c090964b0b62b062eb8a5a1a3a7.zip",
         },
         "Description": "/opt/awscli/aws",
       },
@@ -1288,7 +1288,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Retain",
     },
-    "infrastructureChimeSDKMeetingWithTranscribeAPIDeployment7912FE319ce984d698234cb1bcfde4598633c73e": Object {
+    "infrastructureChimeSDKMeetingWithTranscribeAPIDeployment7912FE31a970271c0c9a9b8667bf0791517c45c8": Object {
       "DependsOn": Array [
         "infrastructureChimeSDKMeetingWithTranscribeAPIendOPTIONS2ED1B77B",
         "infrastructureChimeSDKMeetingWithTranscribeAPIendPOST5C3E6274",
@@ -1315,7 +1315,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
       ],
       "Properties": Object {
         "DeploymentId": Object {
-          "Ref": "infrastructureChimeSDKMeetingWithTranscribeAPIDeployment7912FE319ce984d698234cb1bcfde4598633c73e",
+          "Ref": "infrastructureChimeSDKMeetingWithTranscribeAPIDeployment7912FE31a970271c0c9a9b8667bf0791517c45c8",
         },
         "MethodSettings": Array [
           Object {
@@ -1334,6 +1334,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
     },
     "infrastructureChimeSDKMeetingWithTranscribeAPIOPTIONS8C0928BA": Object {
       "Properties": Object {
+        "ApiKeyRequired": false,
         "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
@@ -1393,6 +1394,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
     },
     "infrastructureChimeSDKMeetingWithTranscribeAPIendOPTIONS2ED1B77B": Object {
       "Properties": Object {
+        "ApiKeyRequired": false,
         "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
@@ -1567,6 +1569,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
     },
     "infrastructureChimeSDKMeetingWithTranscribeAPImeetingOPTIONS2166E958": Object {
       "Properties": Object {
+        "ApiKeyRequired": false,
         "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
@@ -1741,6 +1744,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
     },
     "infrastructureChimeSDKMeetingWithTranscribeAPIrecordingsOPTIONSACBEAD21": Object {
       "Properties": Object {
+        "ApiKeyRequired": false,
         "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
@@ -2122,7 +2126,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "d9078d82fb4c3729e7b563ab0c0cc01f4afbc48195633510496a3b581e9809f2.zip",
+          "S3Key": "ca1dfcc96db8ee7aebb0ee3d99056ee0f407abda01fb32f691e61bc25d111717.zip",
         },
         "Environment": Object {
           "Variables": Object {
@@ -2612,7 +2616,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "203ad7e6bc5b69f4eb5eba48e661ad78fb746c74c8b82dedd42e10d2b1bdef07.zip",
+          "S3Key": "8df182b0fef0e06b94f44e0891b4b2700c523347c9d085774da26355be6281fa.zip",
         },
         "Environment": Object {
           "Variables": Object {
@@ -2812,7 +2816,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "853037d8a98d6dfd7e6dcc02c519cd790bf990e7376293a974038c591959b8c4.zip",
+          "S3Key": "d8628f87f1251aeaeb0be7e440a7d97246398162e441cd62291aaef364f9776b.zip",
         },
         "Environment": Object {
           "Variables": Object {
