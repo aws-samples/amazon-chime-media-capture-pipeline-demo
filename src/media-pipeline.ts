@@ -9,7 +9,6 @@ import {
   Effect,
   PolicyStatement,
   ManagedPolicy,
-  CfnServiceLinkedRole,
 } from 'aws-cdk-lib/aws-iam';
 import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { S3EventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
@@ -28,10 +27,6 @@ export class MediaPipeline extends Construct {
   public outputTable: Table;
   constructor(scope: Construct, id: string) {
     super(scope, id);
-
-    new CfnServiceLinkedRole(this, 'MediaPipelineSLR', {
-      awsServiceName: 'mediapipelines.chime.amazonaws.com',
-    });
 
     this.captureBucket = new Bucket(this, 'captureBucket', {
       publicReadAccess: false,

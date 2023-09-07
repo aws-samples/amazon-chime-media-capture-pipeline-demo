@@ -12,7 +12,6 @@ import {
   PolicyDocument,
   PolicyStatement,
   ManagedPolicy,
-  CfnServiceLinkedRole,
 } from 'aws-cdk-lib/aws-iam';
 import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
@@ -28,10 +27,6 @@ export class Infrastructure extends Construct {
   public readonly apiUrl: string;
   constructor(scope: Construct, id: string, props: InfrastructureProps) {
     super(scope, id);
-
-    new CfnServiceLinkedRole(this, 'TranscriptionSLR', {
-      awsServiceName: 'transcription.chime.amazonaws.com',
-    });
 
     const meetingsTable = new Table(this, 'meetings', {
       partitionKey: {

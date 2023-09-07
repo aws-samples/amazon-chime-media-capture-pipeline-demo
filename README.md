@@ -431,16 +431,14 @@ Once the media concatenation pipeline completes and the artifacts are stored in 
 
 ## Service Linked Roles
 
-As part of this CDK, two service-linked roles are created. This [service-linked role](https://docs.aws.amazon.com/chime-sdk/latest/ag/using-service-linked-roles-transcription.html) will allow the Amazon Chime SDK complete the necessary actions to start live transcription. This [service-linked role](https://docs.aws.amazon.com/chime-sdk/latest/dg/create-pipeline-role.html) will allow the Amazon Chime SDK to complete the necessary actions to capture media from the Amazon Chime SDK meeting.
+As part of this CDK, two service-linked roles are required. This [service-linked role](https://docs.aws.amazon.com/chime-sdk/latest/ag/using-service-linked-roles-transcription.html) will allow the Amazon Chime SDK complete the necessary actions to start live transcription. This [service-linked role](https://docs.aws.amazon.com/chime-sdk/latest/dg/create-pipeline-role.html) will allow the Amazon Chime SDK to complete the necessary actions to capture media from the Amazon Chime SDK meeting.
 
-```typescript
-new CfnServiceLinkedRole(this, 'ElasticSLR', {
-  awsServiceName: 'transcription.chime.amazonaws.com',
-});
+If these do not exist in your account, please add them:
 
-new CfnServiceLinkedRole(this, 'MediaPipelineSLR', {
-  awsServiceName: 'mediapipelines.chime.amazonaws.com',
-});
+```bash
+aws iam create-service-linked-role --aws-service-name transcription.chime.amazonaws.com
+
+aws iam create-service-linked-role --aws-service-name mediapipelines.chime.amazonaws.com
 ```
 
 ## Deploying and Using Demo
