@@ -20,9 +20,9 @@ jobs:
         with:
           node-version: "18"
       - run: yarn install --check-files --frozen-lockfile
-        working-directory: src/resources/server/assets/site
+        working-directory: site
       - run: yarn upgrade
-        working-directory: src/resources/server/assets/site
+        working-directory: site
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
