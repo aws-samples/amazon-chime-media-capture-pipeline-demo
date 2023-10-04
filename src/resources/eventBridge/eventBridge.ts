@@ -1,17 +1,17 @@
 /*eslint import/no-unresolved: 0 */
 import {
-  ChimeSDKMeetingsClient,
-  ListAttendeesCommand,
-  DeleteMeetingCommand,
-  DeleteAttendeeCommand,
-} from '@aws-sdk/client-chime-sdk-meetings';
-import {
   ChimeSDKMediaPipelinesClient,
   CreateMediaConcatenationPipelineCommand,
   CreateMediaConcatenationPipelineCommandInput,
   GetMediaPipelineCommand,
   GetMediaPipelineCommandOutput,
 } from '@aws-sdk/client-chime-sdk-media-pipelines';
+import {
+  ChimeSDKMeetingsClient,
+  ListAttendeesCommand,
+  DeleteMeetingCommand,
+  DeleteAttendeeCommand,
+} from '@aws-sdk/client-chime-sdk-meetings';
 import { Handler } from 'aws-cdk-lib/aws-lambda';
 
 const chimeSdkMediaPipelinesClient = new ChimeSDKMediaPipelinesClient({
