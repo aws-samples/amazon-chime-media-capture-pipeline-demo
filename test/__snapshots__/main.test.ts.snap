@@ -1005,7 +1005,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           },
         ],
         "SourceObjectKeys": Array [
-          "1560e43d818c65a5998ed5dfde8040afa94e613a94d3721141a597d061353f78.zip",
+          "7519fdb9edbb0dd11699ce988a768a0e5a0e857c29b90cf062dd8ffb1d009e7d.zip",
           "5c89cc96a4737b5653e6e4eabef1c7f3e73bbb6884d41e4d857b951a20ec618a.zip",
         ],
       },
