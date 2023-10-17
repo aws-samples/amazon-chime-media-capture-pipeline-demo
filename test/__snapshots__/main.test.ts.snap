@@ -792,7 +792,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "5194f926380567b6fdffc61629afdad2afc818614cb227df45e499c69db163a7.zip",
+          "S3Key": "b7f33614a69548d6bafe224d751a7ef238cde19097415e553fe8b63a4c8fd8a6.zip",
         },
         "Description": Object {
           "Fn::Join": Array [
@@ -1057,6 +1057,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "Statement": Array [
             Object {
               "Action": Array [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -2017,7 +2018,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "f919a80c0bc88f55d280670e553caa5538ee79769a0f3d1135260463e3423cd1.zip",
+          "S3Key": "0e00f7ab97a63ba24459d435b94848d092d702646cc83141265c793345c4d0a2.zip",
         },
         "Environment": Object {
           "Variables": Object {
@@ -2128,6 +2129,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "Statement": Array [
             Object {
               "Action": Array [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -2392,6 +2394,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "Statement": Array [
             Object {
               "Action": Array [
+                "s3:PutBucketPolicy",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
@@ -2501,7 +2504,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "2eaf5372fc7f84e4c5273e392e7ac94ef974f152187ca600a1be20f70580cc85.zip",
+          "S3Key": "552fcc0eb8972d79efc838240c4f10c78fa6c8d2c10469b72b31859973d0937c.zip",
         },
         "Environment": Object {
           "Variables": Object {
@@ -2701,7 +2704,7 @@ def submit_response(event: dict, context, response_status: str, error_message: s
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "cb394631f93fa17281ea1f25a429f3f3230ff8d8918c7fca7ce1e95fdb30b8f4.zip",
+          "S3Key": "219bccafdaa553466df2d6784c60302866f8b17783ee22ea8d71d6282f962f08.zip",
         },
         "Environment": Object {
           "Variables": Object {
