@@ -4,11 +4,12 @@ const { UpgradeDependenciesSchedule } = require('projen/lib/javascript');
 const AUTOMATION_TOKEN = 'PROJEN_GITHUB_TOKEN';
 
 const project = new awscdk.AwsCdkTypeScriptApp({
-  cdkVersion: '2.57.0',
+  cdkVersion: '2.101.0',
   defaultReleaseBranch: 'main',
   name: 'amazon-chime-sdk-meeting-with-with-transcribe',
   appEntrypoint: 'amazon-chime-sdk-meeting-with-transcribe.ts',
   devDeps: ['esbuild'],
+  jest: false,
   projenrcTs: true,
   deps: [
     'fs-extra',
@@ -28,6 +29,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     ignoreProjen: false,
     workflowOptions: {
       labels: ['auto-approve', 'auto-merge'],
+      schedule: UpgradeDependenciesSchedule.WEEKLY,
     },
   },
   scripts: {

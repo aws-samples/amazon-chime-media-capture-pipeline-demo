@@ -35,15 +35,15 @@ interface Detail {
   mediaRegion: string;
 }
 interface EventBridge {
-  version: '0';
-  id: string;
+  'version': '0';
+  'id': string;
   'detail-type': string;
-  source: 'aws.chime';
-  account: string;
-  time: string;
-  region: string;
-  resources: [];
-  detail: Detail;
+  'source': 'aws.chime';
+  'account': string;
+  'time': string;
+  'region': string;
+  'resources': [];
+  'detail': Detail;
 }
 
 export const lambdaHandler: Handler = async (
@@ -66,8 +66,8 @@ export const lambdaHandler: Handler = async (
         if (meetingAttendees && meetingAttendees.Attendees) {
           if (
             meetingAttendees.Attendees.length == 1 &&
-            meetingAttendees.Attendees[0].ExternalUserId?.slice(0, 13) ==
-              'MediaPipeline'
+            meetingAttendees.Attendees[0].ExternalUserId?.slice(0, 17) ==
+              'aws:MediaPipeline'
           ) {
             await deleteMeeting(event.detail.meetingId);
           }
