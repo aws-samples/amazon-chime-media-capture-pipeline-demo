@@ -40,7 +40,7 @@ export class Cognito extends Construct {
 
     const domainValidator = new NodejsFunction(this, 'domainValidator', {
       entry: 'src/resources/cognitoDomain/domainValidator.js',
-      runtime: Runtime.NODEJS_14_X,
+      runtime: Runtime.NODEJS_16_X,
       architecture: Architecture.ARM_64,
       timeout: Duration.seconds(60),
       environment: {
